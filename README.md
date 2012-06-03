@@ -3,9 +3,22 @@ play-aws
 
 The intent of this module is to integrate Amazon Web Services with Play 2.0.
 
+## Configuration
+
+To use the module in your application you must first clone this repository and run:
+    
+    play deploy-local
+    
+You can then use the plugin in your applications by adding the modules to your dependencies.
+
+    val appDependencies = Seq(
+      "play-aws" % "play-aws_2.9.1" % "0.1"
+    )
+
+
 ## DynamoDB
 
-To configure the DynamoDB module you must add your aws access and secret keys to your application.conf file.
+To use DynamoDB you must add your aws access and secret keys to your application.conf file.
 
 	// mandatory
     dynamodb.accesskey="awsAccessKey"
