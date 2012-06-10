@@ -23,14 +23,14 @@ public class S3Plugin extends Plugin {
     
     @Override
     public void onStart() {
-        Configuration conf = Configuration.root().getConfig("aws");
-        if (conf != null) {
-            String accesskey = conf.getString("accesskey");
-            String secretkey = conf.getString("secretkey");
+        Configuration aws = Configuration.root().getConfig("aws");
+        if (aws != null) {
+            String accesskey = aws.getString("accesskey");
+            String secretkey = aws.getString("secretkey");
             if (accesskey != null && secretkey != null) {
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
                 client = new AmazonS3Client(credentials);
-                String endpoint = conf.getString("endpoint");
+                String endpoint = aws.getString("endpoint");
                 if (endpoint != null) {
                     client.setEndpoint(endpoint);
                 }
