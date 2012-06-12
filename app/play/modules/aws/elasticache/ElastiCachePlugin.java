@@ -27,9 +27,7 @@ public class ElastiCachePlugin extends CachePlugin {
 
 	private final Application application;
 	
-	private AmazonElastiCache elasticacheClient;
-	
-	private MemcachedClient memcachedClient;
+	private Memcached memcached;
 	
 	public ElastiCachePlugin(Application application) {
         this.application = application;
@@ -46,13 +44,13 @@ public class ElastiCachePlugin extends CachePlugin {
             if (accesskey != null && secretkey != null && clusterid != null) {
             	// elasticache client
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
-                elasticacheClient = new AmazonElastiCacheClient(credentials);
+                AmazonElastiCache elasticacheClient = new AmazonElastiCacheClient(credentials);
                 String endpoint = aws.getString("endpoint");
                 if (endpoint != null) {
                     elasticacheClient.setEndpoint(endpoint);
                 }
                 
-                // retrieve endpoints
+                // retrieve elasticache endpoints
                 List<String> endpoints = new ArrayList<String>();
                 DescribeCacheClustersRequest request = new DescribeCacheClustersRequest();
                 request.setShowCacheNodeInfo(true);
@@ -69,9 +67,9 @@ public class ElastiCachePlugin extends CachePlugin {
                 // create the memcached client
                 ConnectionFactoryBuilder connectionFactoryBuilder = new ConnectionFactoryBuilder();
                 try {
-					memcachedClient = new MemcachedClient(connectionFactoryBuilder.build(), AddrUtil.getAddresses(endpoints));
+					memcached = new Memcached(new MemcachedClient(connectionFactoryBuilder.build(), AddrUtil.getAddresses(endpoints)));
                 } catch (IOException e) {
-					
+					throw new RuntimeException("ElastiCachePlugin configuration problem");
 				}
             }
         }
@@ -86,7 +84,7 @@ public class ElastiCachePlugin extends CachePlugin {
 
 	@Override
 	public CacheAPI api() {
-		return new Memcached(memcachedClient);
+		return memcached;
 	}
 	
 	

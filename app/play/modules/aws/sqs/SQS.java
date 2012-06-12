@@ -7,7 +7,7 @@ import com.amazonaws.services.sqs.AmazonSQSClient;
 
 public class SQS {
 
-	public AmazonSQSClient client() {
+	public static AmazonSQSClient client() {
         Application app = Play.application();
         if (app == null) {
             throw new RuntimeException("No application running");

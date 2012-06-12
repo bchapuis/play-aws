@@ -7,7 +7,7 @@ import com.amazonaws.services.sns.AmazonSNS;
 
 public class SNS {
 
-	public AmazonSNS client() {
+	public static AmazonSNS client() {
         Application app = Play.application();
         if (app == null) {
             throw new RuntimeException("No application running");

@@ -7,7 +7,7 @@ import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 
 public class SES {
 
-	public AmazonSimpleEmailService client() {
+	public static AmazonSimpleEmailService client() {
         Application app = Play.application();
         if (app == null) {
             throw new RuntimeException("No application running");
