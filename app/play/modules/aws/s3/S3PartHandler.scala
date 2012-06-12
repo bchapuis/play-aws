@@ -13,8 +13,8 @@ import play.modules.aws.s3.S3
 import com.amazonaws.services.s3._
 import com.amazonaws.services.s3.model._
 import scala.collection.immutable.Stream
-  
-object S3BodyParser {
+
+object S3PartHandler {
   def handleFilePartS3Object: BodyParsers.parse.Multipart.PartHandler[MultipartFormData.FilePart[S3Object]] = {
     BodyParsers.parse.Multipart.handleFilePart {
       case BodyParsers.parse.Multipart.FileInfo(partName, filename, contentType) =>

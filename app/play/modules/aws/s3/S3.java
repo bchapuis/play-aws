@@ -15,22 +15,31 @@ import com.amazonaws.services.s3.model.VersionListing;
 
 public class S3 {
 
+	private static S3Plugin plugin;
+	
+	public static S3Plugin plugin() {
+		if (plugin == null) {
+	        Application app = Play.application();
+	        if (app == null) {
+	            throw new RuntimeException("No application running");
+	        }
+	        plugin = app.plugin(S3Plugin.class);
+		}
+		return plugin;
+	}
+	
+	public static String tmpBucket() {
+		return plugin().tmpBucket();
+	}
+	
 	public static AmazonS3Client client() {
-        Application app = Play.application();
-        if (app == null) {
-            throw new RuntimeException("No application running");
-        }
-        S3Plugin plugin = app.plugin(S3Plugin.class);
-        AmazonS3Client client = plugin.client();
+        AmazonS3Client client = plugin().client();
         if (client == null) {
             throw new RuntimeException("No AmazonS3Client configured");
         }
         return client;
     }
 	
-	public static String bucket() {
-		return null;
-	}
 	public static String key() {
 		return null;
 	}

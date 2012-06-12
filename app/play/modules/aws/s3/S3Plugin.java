@@ -15,8 +15,10 @@ public class S3Plugin extends Plugin {
 	
 	private final Application application;
 
+	private String tmpBucket;
+	
     private AmazonS3Client client;
-
+    
     public S3Plugin(Application application) {
         this.application = application;
     }
@@ -36,12 +38,20 @@ public class S3Plugin extends Plugin {
                 }
             }
         }
+        Configuration s3 = Configuration.root().getConfig("s3");
+        if (s3 != null) {
+        	tmpBucket = s3.getString("tmpbucket");
+        }
         Logger.info("S3Plugin has started");
     }
 
     @Override
     public void onStop() {
         Logger.info("S3Plugin has stopped");
+    }
+    
+    public String tmpBucket() {
+        return tmpBucket;
     }
 	
 	public AmazonS3Client client() {
