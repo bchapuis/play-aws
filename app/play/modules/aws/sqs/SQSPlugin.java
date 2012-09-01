@@ -25,16 +25,15 @@ public class SQSPlugin extends Plugin {
     @Override
     public void onStart() {
         Configuration aws = Configuration.root().getConfig("aws");
-        if (aws != null) {
+        Configuration sqs = Configuration.root().getConfig("sqs");
+        if (aws != null && sqs != null) {
             String accesskey = aws.getString("accesskey");
             String secretkey = aws.getString("secretkey");
+            String endpoint = sqs.getString("endpoint");
             if (accesskey != null && secretkey != null) {
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
                 client = new AmazonSQSClient(credentials);
-                String endpoint = aws.getString("endpoint");
-                if (endpoint != null) {
-                    client.setEndpoint(endpoint);
-                }
+	            client.setEndpoint(endpoint);
             }
         }
         Logger.info("SQSPlugin has started");

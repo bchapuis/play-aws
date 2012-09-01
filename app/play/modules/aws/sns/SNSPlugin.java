@@ -14,7 +14,7 @@ public class SNSPlugin extends Plugin {
 	
 	private final Application application;
 
-    private AmazonSNS client;
+    private AmazonSNSClient client;
 
     public SNSPlugin(Application application) {
         this.application = application;
@@ -23,16 +23,15 @@ public class SNSPlugin extends Plugin {
     @Override
     public void onStart() {
         Configuration aws = Configuration.root().getConfig("aws");
-        if (aws != null) {
+        Configuration sns = Configuration.root().getConfig("sns");
+        if (aws != null && sns != null) {
             String accesskey = aws.getString("accesskey");
             String secretkey = aws.getString("secretkey");
-            if (accesskey != null && secretkey != null) {
+            String endpoint = sns.getString("endpoint");
+            if (accesskey != null && secretkey != null && endpoint != null) {
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
                 client = new AmazonSNSClient(credentials);
-                String endpoint = aws.getString("endpoint");
-                if (endpoint != null) {
-                    client.setEndpoint(endpoint);
-                }
+                client.setEndpoint(endpoint);
             }
         }
         Logger.info("SNSPlugin has started");
@@ -43,7 +42,7 @@ public class SNSPlugin extends Plugin {
         Logger.info("SNSPlugin has stopped");
     }
 	
-	public AmazonSNS client() {
+	public AmazonSNSClient client() {
         return client;
     }
 

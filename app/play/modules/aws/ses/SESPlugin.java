@@ -24,16 +24,15 @@ public class SESPlugin extends Plugin {
     @Override
     public void onStart() {
         Configuration aws = Configuration.root().getConfig("aws");
-        if (aws != null) {
+        Configuration ses = Configuration.root().getConfig("ses");
+        if (aws != null && ses != null) {
             String accesskey = aws.getString("accesskey");
             String secretkey = aws.getString("secretkey");
-            if (accesskey != null && secretkey != null) {
+            String endpoint = ses.getString("endpoint");
+            if (accesskey != null && secretkey != null && endpoint != null) {
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
                 client = new AmazonSimpleEmailServiceClient(credentials);
-                String endpoint = aws.getString("endpoint");
-                if (endpoint != null) {
-                    client.setEndpoint(endpoint);
-                }
+                client.setEndpoint(endpoint);
             }
         }
         Logger.info("SNSPlugin has started");

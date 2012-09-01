@@ -28,10 +28,6 @@ public class S3 {
 		return plugin;
 	}
 	
-	public static String tmpBucket() {
-		return plugin().tmpBucket();
-	}
-	
 	public static AmazonS3Client client() {
         AmazonS3Client client = plugin().client();
         if (client == null) {

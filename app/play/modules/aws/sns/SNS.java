@@ -4,16 +4,17 @@ import play.Application;
 import play.Play;
 
 import com.amazonaws.services.sns.AmazonSNS;
+import com.amazonaws.services.sns.AmazonSNSClient;
 
 public class SNS {
 
-	public static AmazonSNS client() {
+	public static AmazonSNSClient client() {
         Application app = Play.application();
         if (app == null) {
             throw new RuntimeException("No application running");
         }
         SNSPlugin plugin = app.plugin(SNSPlugin.class);
-        AmazonSNS client = plugin.client();
+        AmazonSNSClient client = plugin.client();
         if (client == null) {
             throw new RuntimeException("No AmazonSNSClient configured");
         }

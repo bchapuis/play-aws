@@ -1,6 +1,6 @@
 10000:play.modules.aws.dynamodb.DynamoDBPlugin
 10000:play.modules.aws.elasticache.ElastiCachePlugin
-10000:play.modules.aws.S3Plugin
-10000:play.modules.aws.SESPlugin
-10000:play.modules.aws.SNSPlugin
-10000:play.modules.aws.SQSPlugin
+10000:play.modules.aws.s3.S3Plugin
+10000:play.modules.aws.ses.SESPlugin
+10000:play.modules.aws.sns.SNSPlugin
+10000:play.modules.aws.sqs.SQSPlugin

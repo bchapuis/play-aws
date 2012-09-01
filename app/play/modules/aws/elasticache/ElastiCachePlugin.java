@@ -42,10 +42,11 @@ public class ElastiCachePlugin extends CachePlugin {
             String secretkey = aws.getString("secretkey");
             String clusterid = elasticache.getString("cluster");
             if (accesskey != null && secretkey != null && clusterid != null) {
+            	
             	// elasticache client
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
                 AmazonElastiCache elasticacheClient = new AmazonElastiCacheClient(credentials);
-                String endpoint = aws.getString("endpoint");
+                String endpoint = elasticache.getString("endpoint");
                 if (endpoint != null) {
                     elasticacheClient.setEndpoint(endpoint);
                 }

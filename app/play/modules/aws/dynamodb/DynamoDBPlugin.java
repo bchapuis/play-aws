@@ -38,16 +38,15 @@ public class DynamoDBPlugin extends Plugin {
     @Override
     public void onStart() {
         Configuration aws = Configuration.root().getConfig("aws");
-        if (aws != null) {
+        Configuration dynamodb = Configuration.root().getConfig("dynamodb");
+        if (aws != null && dynamodb != null) {
             String accesskey = aws.getString("accesskey");
             String secretkey = aws.getString("secretkey");
-            if (accesskey != null && secretkey != null) {
+            String endpoint = dynamodb.getString("endpoint");
+            if (accesskey != null && secretkey != null && endpoint != null) {
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
                 client = new AmazonDynamoDBClient(credentials);
-                String endpoint = aws.getString("endpoint");
-                if (endpoint != null) {
-                    client.setEndpoint(endpoint);
-                }
+                client.setEndpoint(endpoint);
                 mapper = new DynamoDBMapper(client);
             }
         }

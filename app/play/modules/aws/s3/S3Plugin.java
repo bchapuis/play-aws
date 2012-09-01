@@ -14,8 +14,6 @@ import com.amazonaws.services.s3.AmazonS3Client;
 public class S3Plugin extends Plugin {
 	
 	private final Application application;
-
-	private String tmpBucket;
 	
     private AmazonS3Client client;
     
@@ -26,21 +24,16 @@ public class S3Plugin extends Plugin {
     @Override
     public void onStart() {
         Configuration aws = Configuration.root().getConfig("aws");
-        if (aws != null) {
+        Configuration s3 = Configuration.root().getConfig("s3");
+        if (aws != null && s3 != null) {
             String accesskey = aws.getString("accesskey");
             String secretkey = aws.getString("secretkey");
-            if (accesskey != null && secretkey != null) {
+            String endpoint = s3.getString("endpoint");
+            if (accesskey != null && secretkey != null && endpoint != null) {
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
                 client = new AmazonS3Client(credentials);
-                String endpoint = aws.getString("endpoint");
-                if (endpoint != null) {
-                    client.setEndpoint(endpoint);
-                }
+            	client.setEndpoint(endpoint);
             }
-        }
-        Configuration s3 = Configuration.root().getConfig("s3");
-        if (s3 != null) {
-        	tmpBucket = s3.getString("tmpbucket");
         }
         Logger.info("S3Plugin has started");
     }
@@ -48,10 +41,6 @@ public class S3Plugin extends Plugin {
     @Override
     public void onStop() {
         Logger.info("S3Plugin has stopped");
-    }
-    
-    public String tmpBucket() {
-        return tmpBucket;
     }
 	
 	public AmazonS3Client client() {
