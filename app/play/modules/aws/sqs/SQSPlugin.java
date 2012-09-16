@@ -1,5 +1,7 @@
 package play.modules.aws.sqs;
 
+import java.util.List;
+
 import play.Application;
 import play.Configuration;
 import play.Logger;
@@ -7,10 +9,8 @@ import play.Plugin;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.dynamodb.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodb.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.sqs.AmazonSQSClient;
+import com.amazonaws.services.sqs.model.CreateQueueRequest;
 
 public class SQSPlugin extends Plugin {
 	
@@ -30,10 +30,14 @@ public class SQSPlugin extends Plugin {
             String accesskey = aws.getString("accesskey");
             String secretkey = aws.getString("secretkey");
             String endpoint = sqs.getString("endpoint");
+            List<String> queues = sqs.getStringList("queues");
             if (accesskey != null && secretkey != null) {
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
                 client = new AmazonSQSClient(credentials);
 	            client.setEndpoint(endpoint);
+	            for (String queue : queues) {
+	            	client.createQueue(new CreateQueueRequest(queue));
+	            }
             }
         }
         Logger.info("SQSPlugin has started");

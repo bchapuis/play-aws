@@ -20,11 +20,8 @@ You can then use the plugin in your applications by adding the modules to your d
 
 To use DynamoDB you must add your aws access and secret keys to your application.conf file.
 
-	// mandatory
-    dynamodb.accesskey="awsAccessKey"
-    dynamodb.secretkey="awsSecretKey
-    
-    // optional
+    aws.accesskey="awsAccessKey"
+    aws.secretkey="awsSecretKey
     dynamodb.endpoint="awsEndPoint" 
 
 The following example assumes that a table called User already exists in your configuration.

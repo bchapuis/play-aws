@@ -19,8 +19,8 @@ object S3PartHandler {
     BodyParsers.parse.Multipart.handleFilePart {
       case BodyParsers.parse.Multipart.FileInfo(partName, filename, contentType) =>
         val client:AmazonS3Client = S3.client()
-        val bucket:String = ""
-        val key:String = ""
+        val bucket:String = "tmp"
+        val key:String = UUID.randomUUID().toString()
         val request:InitiateMultipartUploadRequest = new InitiateMultipartUploadRequest(bucket, key)
       	val result:InitiateMultipartUploadResult = client.initiateMultipartUpload(request)
         var parts:ArrayList[PartETag] = new ArrayList[PartETag]()
