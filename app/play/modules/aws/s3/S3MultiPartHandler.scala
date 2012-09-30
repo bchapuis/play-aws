@@ -16,7 +16,7 @@ import play.modules.aws.s3.S3
 import scala.collection.immutable.Stream
 import play.mvc.Http
 
-object S3PartHandler {
+object S3MultiPartHandler {
 
   case class RequestBody(
       s3Object: Option[MultipartFormData[S3Object]] = None,

@@ -1,5 +1,6 @@
 package play.modules.aws.ses;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import play.Application;
