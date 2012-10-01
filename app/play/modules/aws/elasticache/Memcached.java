@@ -20,13 +20,12 @@ public class Memcached implements CacheAPI {
 	}
 
 	@Override
-	public void remove(String key) {
-		client.delete(key);
-	}
-
-	@Override
 	public void set(String key, Object value, int expiration) {
 		client.set(key, expiration, value);
+	}
+	
+	public void remove(String key) {
+		client.delete(key);
 	}
 
 }

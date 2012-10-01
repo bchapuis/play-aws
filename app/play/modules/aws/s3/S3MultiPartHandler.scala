@@ -1,3 +1,4 @@
+/*
 package play.modules.aws.s3
 
 import java.util._
@@ -66,4 +67,5 @@ object S3MultiPartHandler {
   }
   
 }
+*/
 

@@ -32,14 +32,10 @@ public class SESPlugin extends Plugin {
             String accesskey = aws.getString("accesskey");
             String secretkey = aws.getString("secretkey");
             String endpoint = ses.getString("endpoint");
-            List<String> senders = ses.getStringList("senders");
             if (accesskey != null && secretkey != null && endpoint != null) {
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
                 client = new AmazonSimpleEmailServiceClient(credentials);
                 client.setEndpoint(endpoint);
-                for (String sender : senders) {
-                	client.verifyEmailAddress(new VerifyEmailAddressRequest().withEmailAddress(sender));
-                }
             }
         }
         Logger.info("SNSPlugin has started");

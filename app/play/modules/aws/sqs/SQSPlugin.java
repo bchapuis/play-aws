@@ -30,14 +30,10 @@ public class SQSPlugin extends Plugin {
             String accesskey = aws.getString("accesskey");
             String secretkey = aws.getString("secretkey");
             String endpoint = sqs.getString("endpoint");
-            List<String> queues = sqs.getStringList("queues");
             if (accesskey != null && secretkey != null) {
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
                 client = new AmazonSQSClient(credentials);
 	            client.setEndpoint(endpoint);
-	            for (String queue : queues) {
-	            	client.createQueue(new CreateQueueRequest(queue));
-	            }
             }
         }
         Logger.info("SQSPlugin has started");

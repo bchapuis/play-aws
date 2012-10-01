@@ -31,14 +31,10 @@ public class SNSPlugin extends Plugin {
             String accesskey = aws.getString("accesskey");
             String secretkey = aws.getString("secretkey");
             String endpoint = sns.getString("endpoint");
-            List<String> topics = sns.getStringList("topics");
             if (accesskey != null && secretkey != null && endpoint != null) {
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
                 client = new AmazonSNSClient(credentials);
                 client.setEndpoint(endpoint);
-                for (String topic : topics) {
-                	client.createTopic(new CreateTopicRequest(topic));
-                }
             }
         }
         Logger.info("SNSPlugin has started");

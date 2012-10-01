@@ -29,14 +29,10 @@ public class S3Plugin extends Plugin {
             String accesskey = aws.getString("accesskey");
             String secretkey = aws.getString("secretkey");
             String endpoint = s3.getString("endpoint");
-            List<String> buckets = s3.getStringList("buckets");
             if (accesskey != null && secretkey != null && endpoint != null) {
                 AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretkey);
                 client = new AmazonS3Client(credentials);
             	client.setEndpoint(endpoint);
-            	for (String bucket : buckets) {
-            		client.createBucket(bucket);
-            	}
             }
         }
         Logger.info("S3Plugin has started");

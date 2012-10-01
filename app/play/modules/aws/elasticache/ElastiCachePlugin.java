@@ -33,7 +33,6 @@ public class ElastiCachePlugin extends CachePlugin {
         this.application = application;
     }
     
-    @Override
     public void onStart() {
         Configuration aws = Configuration.root().getConfig("aws");
         Configuration elasticache = Configuration.root().getConfig("elasticache");
@@ -78,12 +77,11 @@ public class ElastiCachePlugin extends CachePlugin {
         Logger.info("ElastiCachePlugin has started");
     }
 
-    @Override
     public void onStop() {
         Logger.info("ElastiCachePlugin has stopped");
     }
 
-	@Override
+    @Override
 	public CacheAPI api() {
 		return memcached;
 	}
