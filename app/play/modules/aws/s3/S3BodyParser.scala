@@ -20,12 +20,14 @@ object S3BodyParser {
   }
 
   def proxy(bucket: String, key: String): BodyParser[Future[S3Object]] = BodyParser("proxy") { request =>
-    val p = scala.concurrent.promise[S3Object]
-    val f = p.future
     lazy val transferManager = S3.transferManager();
+
     val metadata = new ObjectMetadata
     val output = new PipedOutputStream
     val input = new PipedInputStream(output)
+
+    val p = scala.concurrent.promise[S3Object]
+    val f = p.future
     transferManager.upload(bucket, key, input, metadata).addProgressListener(new ProgressListener {
       def progressChanged(event: ProgressEvent) {
         if (event.getEventCode == ProgressEvent.COMPLETED_EVENT_CODE) {
@@ -33,6 +35,7 @@ object S3BodyParser {
         }
       }
     })
+
     transfer(output)(request).mapDone(_ => {
       Right(f)
     })
