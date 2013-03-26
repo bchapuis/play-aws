@@ -1,10 +1,8 @@
 package play.modules.aws.sns;
 
+import com.amazonaws.services.sns.AmazonSNSClient;
 import play.Application;
 import play.Play;
-
-import com.amazonaws.services.sns.AmazonSNS;
-import com.amazonaws.services.sns.AmazonSNSClient;
 
 public class SNS {
 

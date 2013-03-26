@@ -1,9 +1,8 @@
 package play.modules.aws.ses;
 
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import play.Application;
 import play.Play;
-
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 
 public class SES {
 

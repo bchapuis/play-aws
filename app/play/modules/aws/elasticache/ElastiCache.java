@@ -4,13 +4,11 @@ import net.spy.memcached.MemcachedClient;
 import play.api.cache.CacheAPI;
 import scala.Option;
 
-import com.amazonaws.services.elasticache.model.CacheCluster;
-
-public class Memcached implements CacheAPI {
+public class ElastiCache implements CacheAPI {
 	
 	private final MemcachedClient client;
  
-	public Memcached(MemcachedClient client) {
+	public ElastiCache(MemcachedClient client) {
 		this.client = client;
 	}
 	

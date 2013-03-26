@@ -1,17 +1,12 @@
 package play.modules.aws.sns;
 
-import java.util.List;
-
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.sns.AmazonSNSClient;
 import play.Application;
 import play.Configuration;
 import play.Logger;
 import play.Plugin;
-
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.sns.AmazonSNS;
-import com.amazonaws.services.sns.AmazonSNSClient;
-import com.amazonaws.services.sns.model.CreateTopicRequest;
 
 public class SNSPlugin extends Plugin {
 	

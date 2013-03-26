@@ -23,6 +23,7 @@ import play.Configuration;
 import play.Logger;
 import play.Plugin;
 
+
 public class DynamoDBPlugin extends Plugin {
     
 	private final Application application;

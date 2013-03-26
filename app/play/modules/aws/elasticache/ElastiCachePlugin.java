@@ -1,10 +1,13 @@
 package play.modules.aws.elasticache;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.elasticache.AmazonElastiCache;
+import com.amazonaws.services.elasticache.AmazonElastiCacheClient;
+import com.amazonaws.services.elasticache.model.CacheCluster;
+import com.amazonaws.services.elasticache.model.CacheNode;
+import com.amazonaws.services.elasticache.model.DescribeCacheClustersRequest;
+import com.amazonaws.services.elasticache.model.DescribeCacheClustersResult;
 import net.spy.memcached.AddrUtil;
 import net.spy.memcached.ConnectionFactoryBuilder;
 import net.spy.memcached.MemcachedClient;
@@ -14,20 +17,15 @@ import play.Logger;
 import play.api.cache.CacheAPI;
 import play.api.cache.CachePlugin;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.elasticache.AmazonElastiCache;
-import com.amazonaws.services.elasticache.AmazonElastiCacheClient;
-import com.amazonaws.services.elasticache.model.CacheCluster;
-import com.amazonaws.services.elasticache.model.CacheNode;
-import com.amazonaws.services.elasticache.model.DescribeCacheClustersRequest;
-import com.amazonaws.services.elasticache.model.DescribeCacheClustersResult;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ElastiCachePlugin extends CachePlugin {
 
 	private final Application application;
 	
-	private Memcached memcached;
+	private ElastiCache memcached;
 	
 	public ElastiCachePlugin(Application application) {
         this.application = application;
@@ -67,7 +65,7 @@ public class ElastiCachePlugin extends CachePlugin {
                 // create the memcached client
                 ConnectionFactoryBuilder connectionFactoryBuilder = new ConnectionFactoryBuilder();
                 try {
-					memcached = new Memcached(new MemcachedClient(connectionFactoryBuilder.build(), AddrUtil.getAddresses(endpoints)));
+					memcached = new ElastiCache(new MemcachedClient(connectionFactoryBuilder.build(), AddrUtil.getAddresses(endpoints)));
                 } catch (IOException e) {
 					throw new RuntimeException("ElastiCachePlugin configuration problem");
 				}

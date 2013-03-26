@@ -16,7 +16,6 @@ package play.modules.aws.dynamodb;
 
 import com.amazonaws.services.dynamodb.datamodeling.DynamoDBMapper;
 import play.Application;
-import play.Logger;
 import play.Play;
 
 public class DynamoDB {

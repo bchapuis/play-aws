@@ -1,18 +1,13 @@
 package play.modules.aws.ses;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import play.Application;
-import play.Configuration;
-import play.Logger;
-import play.Plugin;
-
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient;
-import com.amazonaws.services.simpleemail.model.VerifyEmailAddressRequest;
+import play.Application;
+import play.Configuration;
+import play.Logger;
+import play.Plugin;
 
 public class SESPlugin extends Plugin {
 	

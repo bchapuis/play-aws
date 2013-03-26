@@ -1,16 +1,12 @@
 package play.modules.aws.sqs;
 
-import java.util.List;
-
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.sqs.AmazonSQSClient;
 import play.Application;
 import play.Configuration;
 import play.Logger;
 import play.Plugin;
-
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.sqs.AmazonSQSClient;
-import com.amazonaws.services.sqs.model.CreateQueueRequest;
 
 public class SQSPlugin extends Plugin {
 	
